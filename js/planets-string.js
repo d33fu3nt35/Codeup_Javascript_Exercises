@@ -12,11 +12,14 @@
     // TODO: Create a string with <br> tags between each planet. console.log() your results.
     var planetsString = planetsArray.join('<br>');
     console.log(planetsString);
+
     //       Why might this be useful?
 
     // Bonus: Create a second string that would display your planets in an undordered list.
     //        You will need an opening AND closing <ul> tags around the entire string, and <li> tags around each planet.
     //        console.log() your results.
-    planetsArray.unshift("<ul>");
-    planetsArray.push("<ul>");
 })();
+
+// for (i = 1; i <= planetsString.length; i++) {
+//         console.log("<ul>" + i + "</ul>")
+// }
