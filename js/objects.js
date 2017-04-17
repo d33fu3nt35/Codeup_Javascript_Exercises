@@ -56,17 +56,31 @@
      */
 
     var shoppers = [
-        {name: 'Cameron', amountbefore: 180, discount: 10, amountafter: 162},
-        {name: 'Ryan', amountbefore: 250, discount: 10, amountafter: 225},
-        {name: 'George', amountbefore: 320, discount: 10, amountafter: 288}
+        {name: 'Cameron', amount: 180, discount: 10, amountafter: 162},
+        {name: 'Ryan', amount: 250, discount: 10, amountafter: 225},
+        {name: 'George', amount: 320, discount: 10, amountafter: 288}
     ];
 
-    var myFunction = function(shoppers) {
-        console.log(shoppers);
-    };
+    shoppers.forEach(function(shopper, index) {
+        var discountRate = .35;
+        var totalDollarsPaid = 0;
+        var discountBreakpointDollars = 200;
+        var outputMessage = "";
 
-    shoppers.forEach(myFunction);
+        if (shopper.amount > discountBreakpointDollars) {
+            totalDollarsPaid = shopper.amount - (shopper.amount * discountRate);
+        } else {
+            totalDollarsPaid = shopper.amount;
+        }
 
+        outputMessage += shopper.name + " bought " + "$" + shopper.amount + " worth of products. ";
+        outputMessage += " Final payment: " + "$";
+        outputMessage += (Math.round(totalDollarsPaid * 100) / 100).toFixed(2) + ".";
+
+        console.log("-----CUSTOMER " + (index + 1) + "-----");
+
+        console.log(outputMessage);
+    });
 
 })();
 
