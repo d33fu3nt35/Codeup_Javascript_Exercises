@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Konami Code</title>
+</head>
+<body>
+<h1>Konami Code</h1>
+<div id="iframe"></div>
+
+
+<script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+crossorigin="anonymous"></script>
+
+<script>
+
+    var keys = [], konami = '65,66,67,68';
+
+    $(document).keydown(function (event) {
+        keys.push( event.keyCode );
+        if ( keys.toString().indexOf (konami) >= 0 ){
+            $(document).unbind('keydown',arguments.callee);
+            $(document).keydown(afterkonami);
+        }
+    });
+
+
+    var afterkonami = function() {
+        $('#iframe').html('<iframe width="560" height="315" src="https://www.youtube.com/embed/0_kCxWlBLvk?autoplay=1" frameborder="0" allowfullscreen></iframe>');
+    };
+
+</script>
+</body>
+</html>

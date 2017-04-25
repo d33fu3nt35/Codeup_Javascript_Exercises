@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Google Maps API</title>
+
+    <style type="text/css">
+        #map-canvas {
+            width: 100%;
+            height: 500px;
+
+        }
+
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+
+
+    </style>
+
+</head>
+<body>
+
+<!-- DIV TO HOLD MAP -->
+
+<div id='map-canvas'></div>
+
+<label for="lat">Lat:</label>
+<input type="text" id="lat" value="29.426791">
+
+<label for="long">Long:</label>
+<input type="text" id="long" value="-98.489602">
+
+<label for="zoom">Zoom:</label>
+<input type="text" id="zoom" value="10">
+
+<button id="zoominbutton">+</button>
+<button id="zoomoutbutton">-</button>
+<button id="update">Update Map</button>
+
+
+<!-- LOAD THE GOOGLE MAPS API -->
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8JcDb63_ThFb0x0gPnjyFXv4VThpieHo"></script>
+
+
+<!-- SCRIPT TO SHOW ADDRESS ON MAP -->
+
+
+<script type="text/javascript">
+
+(function () {
+        "use strict";
+
+        var zoom = parseFloat(document.getElementById('zoom').value);
+        google.maps.event.addDomListener(zoominbutton, 'click', function() {
+            map.setZoom(map.getZoom() + 1);
+        });
+
+        google.maps.event.addDomListener(zoomoutbutton, 'click', function() {
+            map.setZoom(map.getZoom() - 1);
+        });
+
+        // SET CENTER EVENT
+
+        update.addEventListener('click', function() {
+
+            var coord = {lat: parseFloat(document.getElementById('lat').value),
+                lng: parseFloat(document.getElementById('long').value)};
+            map.setCenter(coord);
+        });
+
+//        google.maps.event.addDomListener(window, 'load', initialize);
+//        function pan() {
+//            var panPoint = new google.maps.LatLng(document.getElementById("lat").value, document.getElementById("long").value);
+//            map.panTo(panPoint)
+//        }
+
+
+        // SET OUR MAP OPTIONS
+
+        var mapOptions = {
+            // SET ZOOM LEVEL
+
+            zoom: 19,
+
+            // THIS SETS THE CENTER OF THE MAP AT OUR LOCATION
+
+            center: {
+
+                lat: 29.426791,
+                lng: -98.489602
+
+            },
+            disableDefaultUI: true
+
+        };
+
+        // RENDER THE MAP
+
+        var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+        // GEOCODING
+
+        var address = "233 Lebanon, San Antonio, TX, 78223";
+
+        var geocoder = new google.maps.Geocoder();
+
+        geocoder.geocode({'address':  address }, function(results, status) {
+
+            // CHECK FOR A SUCCESSFUL RESULT
+
+            if (status === google.maps.GeocoderStatus.OK) {
+
+                map.setCenter(results[0].geometry.location);
+
+            } else {
+
+                alert('Geocoding was not successful - STATUS: ' + status);
+            }
+        })
+
+
+    })();
+
+</script>
+</body>
+</html>
