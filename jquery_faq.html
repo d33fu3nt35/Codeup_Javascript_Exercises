@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jquery Faq</title>
+</head>
+<body>
+
+<div id="topdiv">
+    <h1>Would you like to sign up for our newsletter?</h1>
+    <span id="x">X</span>
+</div>
+<h3 id="Register"> Would you like to register for this site?</h3>
+
+<ul id="languages">
+    <li>Linux</li>
+    <li>Apache</li>
+    <li>MySQL</li>
+    <li>PHP</li>
+    <li>Javascript</li>
+</ul>
+
+<ul id="languages2">
+    <li>Linux</li>
+    <li>Apache</li>
+    <li>MySQL</li>
+    <li>PHP</li>
+    <li>Javascript</li>
+</ul>
+
+<h1>Parks List</h1>
+
+<h3 id="dltoggle">National Parks</h3>
+
+<dl id="national-parks">
+    <dt>Arches</dt>
+    <dd class="invisible">Badlands</dd>
+    <dt>Carlsbad Caverns</dt>
+    <dd class="invisible">Denali</dd>
+</dl>
+
+<h3 id="dltoggle2">State Parks of Texas</h3>
+
+<dl id="national-parks2">
+    <dt>Travis</dt>
+    <dd class="invisible">Badlands</dd>
+    <dt>Hardberger</dt>
+    <dd class="invisible">Denali</dd>
+</dl>
+
+<a href="#" id="toggle">Show</a>
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function(){
+        "use strict";
+//        console.log("Finished");
+//
+//        $("#toggle").click(function(){
+//            $("dd").toggleClass("invisible");
+//            // Changes the text if i don't have the class
+//            if(!$("dd").hasClass("invisible")){
+//                $(this).text("Hide");
+//            }else{
+//                $(this).text("Show");
+//            }
+//
+//        });
+        // Traversing lecture
+        $("#national-parks dd").each(function(index, el){
+            console.log("index: "+ index+ " el: "+ $(el).text());
+        });
+        //Selects the last li from each ul list
+        $("ul").each(function(index, el){
+            $(el).children().last().css("background-color", "cyan");
+//            $(el).children().first().css("background-color", "cyan");
+        });
+        //Gets a property from the parent through the children
+        $("li").each(function(i, e){
+            console.log($(e).parent().attr("id"));
+        });
+
+        $('#x').click(function() {
+            $('#topdiv').hide();
+        });
+
+        $('#national-parks').hide();
+        $('#national-parks2').hide();
+
+        $('#dltoggle').click(function() {
+            $('#national-parks').slideDown("slow");
+        });
+        $('#dltoggle2').click(function() {
+            $('#national-parks2').slideDown("slow");
+        });
+
+
+        $('#Register').css('display', 'none');
+        $('#Register').delay(8000).fadeIn(4000);
+
+        //Selects the second li from #languages
+        $("#languages").children().first().next().css("background-color", "red");
+        //Selects the second last li from #languages
+        $("#languages").children().last().prev().css("background-color", "red");
+    });
+</script>
+
+</body>
+</html>
