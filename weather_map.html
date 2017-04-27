@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather Map</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        .table {
+            width: 0;
+        }
+
+        thead {
+            /*float: top;*/
+            /*display: inline;*/
+        }
+
+        thead th {
+            /*display: block;*/
+        }
+
+        tbody {
+            /*float: right;*/
+        }
+
+
+    </style>
+</head>
+<body>
+<main class="container">
+<h1>Weather Application</h1>
+<h3>San Antonio</h3>
+
+
+<table class="table table-bordered table-striped table-hover table-responsive" id="products" border="1">
+    <thead>
+    <tr>
+        <th>Days</th>
+        <th>Temp. Min: </th>
+        <th>Temp. Max: </th>
+        <th>Clouds: </th>
+        <th>Humidity: </th>
+        <th>Wind: </th>
+        <th>Pressure: </th>
+    </tr>
+    </thead>
+    <tbody id="weather"></tbody>
+</table>
+
+<!--<div id="weather"></div>-->
+</main>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="js/moment.js"></script>
+<script>
+
+/*    $.ajax({
+        url: "http://api.openweathermap.org/data/2.5/weather",
+        type: "GET",
+        data: {
+            APPID: "467fce2fbe4d967cacd8c8886374905a",
+            q:     "San Antonio, TX"
+        }
+    });*/
+'use strict';
+
+var weather = '';
+var i;
+
+$.get("http://api.openweathermap.org/data/2.5/forecast/daily/", {
+    APPID: "a98c1b09577559200e9dc5d063ad50b1",
+    q:     "San Antonio, TX",
+    units: "imperial"
+}).done(function(data) {
+    console.log(data);
+    console.log(data.list[0].temp.min);
+    console.log(data.list[0].temp.max);
+    console.log(data.list[0].clouds);
+    console.log(data.list[0].humidity);
+    console.log(data.list[0].speed);
+    console.log(data.list[0].pressure);
+
+    for (i = 0; i < data.list.length; i++) {
+//        var date = new Date(data.list[i].dt * 1000, moment().format('dddd'));
+        var date = moment(data.list[i].dt * 1000).format('dddd');
+
+        weather += '<tr>' + '<td>' + date + '</td>';
+        weather += '<td>' + data.list[i].temp.min + '</td>';
+        weather += '<td>' + data.list[i].temp.max + '</td>';
+        weather += '<td>' + data.list[i].clouds + '</td>';
+        weather += '<td>' + data.list[i].humidity + '</td>';
+        weather += '<td>' + data.list[i].speed + '</td>';
+        weather += '<td>' + data.list[i].pressure + '</td>' + '</tr>';
+    }
+
+    $('#weather').html(weather);
+});
+
+</script>
+</body>
+</html>
