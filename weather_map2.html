@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Weather Map</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
@@ -15,7 +16,37 @@
         }
 
         body {
-            background-color: #8dd5ad;
+            /*background-color: #8dd5ad;*/
+            text-align: center;
+            /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#8dd5ad+0,29c457+100 */
+            background: #8dd5ad; /* Old browsers */
+            background: -moz-radial-gradient(center, ellipse cover, #8dd5ad 0%, #29c457 100%); /* FF3.6-15 */
+            background: -webkit-radial-gradient(center, ellipse cover, #8dd5ad 0%,#29c457 100%); /* Chrome10-25,Safari5.1-6 */
+            background: radial-gradient(ellipse at center, #8dd5ad 0%,#29c457 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8dd5ad', endColorstr='#29c457',GradientType=1 );
+            background-repeat: no-repeat;
+            background-size: cover;
+
+        }
+
+        #addressBtn {
+            border-radius: 0px;
+            background-color: rgba(0, 255, 245, 0.24);
+            border: solid black 1px;
+            color: black;
+            transition: 1s;
+        }
+
+        #addressBtn:hover {
+            border-radius: 0px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border: solid black 1px;
+            color: black;
+            /*padding-left: 30px;*/
+            /*padding-right: 30px;*/
+            padding: 15px;
+            transition: 1s;
+            border-radius: 15px;
         }
 
         #header {
@@ -24,6 +55,18 @@
         }
 
         #header:hover {
+            text-align: center;
+            color: white;
+            text-shadow: 0px 5px 3px rgba(150, 150, 150, 0.55);
+            transition: 0.8s;
+        }
+
+        #cityname {
+            text-align: center;
+            transition: 0.8s;
+        }
+
+        #cityname:hover {
             text-align: center;
             color: white;
             text-shadow: 0px 5px 3px rgba(150, 150, 150, 0.55);
@@ -43,9 +86,9 @@
             margin: 1px;
             border: solid black 3px;
             width: 32.333333%;
-            -webkit-box-shadow: 0px 22px 0px 0px rgba(0,0,0,0.35);
-            -moz-box-shadow: 0px 22px 0px 0px rgba(0,0,0,0.35);
-            box-shadow: 0px 22px 0px 0px rgba(0,0,0,0.35);
+            -webkit-box-shadow: 0px 50px 0px 0px rgba(0, 0, 0, 0.35);
+            -moz-box-shadow: 0px 50px 0px 0px rgba(0, 0, 0, 0.35);
+            box-shadow: 0px 50px 0px 0px rgba(0, 0, 0, 0.35);
             transition: 0.8s;
         }
 
@@ -65,6 +108,9 @@
         #map-canvas {
             width: 100%;
             height: 250px;
+            -webkit-box-shadow: 0px 10px 8px -5px rgba(0,0,0,0.6);
+            -moz-box-shadow: 0px 10px 8px -5px rgba(0,0,0,0.6);
+            box-shadow: 0px 10px 8px -5px rgba(0,0,0,0.6);
 
         }
 
@@ -72,24 +118,22 @@
     </style>
 </head>
 <body>
+
 <div class="container">
-    <div id="header"><h1>Weather Application</h1>
-        <h3>San Antonio</h3></div>
-    <div id="weather" class="row">
-        <div id="info-0" class="col-sm-4 text-center"></div>
-        <div id="info-1" class="col-sm-4 text-center"></div>
-        <div id="info-2" class="col-sm-4 text-center"></div>
-        <div id="info-3" class="col-sm-4 text-center"></div>
-        <div id="info-4" class="col-sm-4 text-center"></div>
-        <div id="info-5" class="col-sm-4 text-center"></div>
-        <div id="info-6" class="col-sm-4 text-center"></div>
-    </div>
+    <div id="header"><h1>Weather Application</h1></div>
+
+    <div id="weather" class="row"></div>
 </div>
+
 <br>
 <div id='map-canvas'></div>
-
-
-
+<br>
+<input id="address" placeholder="Address:">
+<br>
+<br>
+<button id="addressBtn" class="btn btn-success">Submit</button>
+<br>
+<br>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="js/moment.js"></script>
@@ -99,85 +143,112 @@
 
     'use strict';
 
-    var weather = '';
     var i;
+    function getWeather(lat, lng) {
+        $.get("http://api.openweathermap.org/data/2.5/forecast/daily/", {
+            APPID: "a98c1b09577559200e9dc5d063ad50b1",
+            lat: lat,
+            lon: lng,
+            units: "imperial"
+        }).done(function (data) {
+            console.log(data);
+            console.log(data.list[0].temp.min);
+            console.log(data.list[0].temp.max);
+            console.log(data.list[0].clouds);
+            console.log(data.list[0].humidity);
+            console.log(data.list[0].speed);
+            console.log(data.list[0].pressure);
+            var weather = '<h3 id="cityname">' + data.city.name + '</h3>';
 
-    $.get("http://api.openweathermap.org/data/2.5/forecast/daily/", {
-        APPID: "a98c1b09577559200e9dc5d063ad50b1",
-        q:     "San Antonio, TX",
-        units: "imperial"
-    }).done(function(data) {
-        console.log(data);
-        console.log(data.list[0].temp.min);
-        console.log(data.list[0].temp.max);
-        console.log(data.list[0].clouds);
-        console.log(data.list[0].humidity);
-        console.log(data.list[0].speed);
-        console.log(data.list[0].pressure);
+            for (i = 0; i < 3; i++) {
+                var date = moment(data.list[i].dt * 1000).format('dddd');
+                var iconCode = data.list[i].weather[0].icon;
+                var iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
+                var location = '';
 
-        for (i = 0; i < 3; i++) {
-            var date = moment(data.list[i].dt * 1000).format('dddd');
-            var iconCode = data.list[i].weather[0].icon;
-            var iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
-            var location = '';
+                location += data.city.name;
+                weather += '<div class="col-xs-4 box text-center"><h2>' + date + '</h2>';
+                weather += "<span class='icon'></span><br><br>";
+                weather += "<strong>" + data.list[i].weather[0].main + ": </strong>" + data.list[i].weather[0].description + "<br><br>";
+                weather += '<p>' + '<h4>' + data.list[i].temp.min + '\\' + data.list[i].temp.max + '</h4>' + '</p>';
+                weather += '<p>Clouds: ' + data.list[i].clouds + '</p>';
+                weather += '<p>Humidity: ' + data.list[i].humidity + '</p>';
+                weather += '<p>Wind: ' + data.list[i].speed + '</p>';
+                weather += '<p>Pressure: ' + data.list[i].pressure + '</p></div>';
+            }
 
-            location += data.city.name;
-            weather += '<div class="col-xs-4 box text-center"><h2>' + date + '</h2>';
-            weather += "<span class='icon'></span><br><br>";
-            weather += "<strong>" + data.list[i].weather[0].main + ": </strong>" + data.list[i].weather[0].description + "<br><br>";
-            weather += '<p>' + '<h4>' + data.list[i].temp.min + '\\' + data.list[i].temp.max + '</h4>' + '</p>';
-            weather += '<p>Clouds: ' + data.list[i].clouds + '</p>';
-            weather += '<p>Humidity: ' + data.list[i].humidity + '</p>';
-            weather += '<p>Wind: ' + data.list[i].speed + '</p>';
-            weather += '<p>Pressure: ' + data.list[i].pressure + '</p></div>';
-        }
+            $('#weather').html(weather);
+            $(".icon").html("<img src='" + iconUrl + "'>");
+        });
+    }
+    //        ---------- GOOGLE MAPS API ----------
 
-        $('#weather').html(weather);
-        $(".icon").html("<img src='" + iconUrl + "'>");
+    var mapOptions = {
+        // SET ZOOM LEVEL
 
-//        ---------- GOOGLE MAPS API ----------
+        zoom: 19,
 
-        var mapOptions = {
-            // SET ZOOM LEVEL
+        // THIS SETS THE CENTER OF THE MAP AT OUR LOCATION
 
-            zoom: 19,
+        center: {
 
-            // THIS SETS THE CENTER OF THE MAP AT OUR LOCATION
+            lat: 29.4241,
+            lng: -98.4936
 
-            center: {
+        },
+        disableDefaultUI: false
 
-                lat: 29.426791,
-                lng: -98.489602
+    };
 
-            },
-            disableDefaultUI: false
+    getWeather(mapOptions.center.lat, mapOptions.center.lng);
 
-        };
+    // RENDER THE MAP
 
-        // RENDER THE MAP
+    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-        var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+//    // GEOCODING
+//
+//    var address = "Boston, MA";
+//
+//    var geocoder = new google.maps.Geocoder();
+//
+//    geocoder.geocode({'address': address}, function (results, status) {
+//
+//        // CHECK FOR A SUCCESSFUL RESULT
+//
+//        if (status === google.maps.GeocoderStatus.OK) {
+//
+//            map.setCenter(results[0].geometry.location);
+//            getWeather(results[0].geometry.location.lat(), results[0].geometry.location.lng());
+//
+//        } else {
+//
+//            alert('Geocoding was not successful - STATUS: ' + status);
+//        }
+//    })
 
-        // GEOCODING
+    function Getaddress(){
 
-        var address = "San Antonio, TX";
+        var address = $('#address').val();
 
         var geocoder = new google.maps.Geocoder();
 
-        geocoder.geocode({'address':  address }, function(results, status) {
+        geocoder.geocode({'address': address}, function (results, status) {
 
             // CHECK FOR A SUCCESSFUL RESULT
 
             if (status === google.maps.GeocoderStatus.OK) {
 
                 map.setCenter(results[0].geometry.location);
+                getWeather(results[0].geometry.location.lat(), results[0].geometry.location.lng());
 
             } else {
 
                 alert('Geocoding was not successful - STATUS: ' + status);
             }
         })
-    });
+    }
+    $('#addressBtn').click(Getaddress);
 
 </script>
 </body>
