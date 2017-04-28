@@ -10,6 +10,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
 
+        @import url('https://fonts.googleapis.com/css?family=Exo');
+
         main {
             color: #4b2222;
             text-shadow: 0px 5px 5px rgba(150, 150, 150, 0.45);
@@ -27,6 +29,7 @@
         .icon:hover {
             -webkit-transform: rotate(360deg);
             transform: rotate(360deg);
+            animation: spin 12s infinite linear;
         }
 
         body {
@@ -52,20 +55,22 @@
         }
 
         #addressBtn:hover {
-            border-radius: 0px;
-            background-color: rgba(255, 255, 255, 0.7);
             border: solid black 1px;
             color: black;
-            /*padding-left: 30px;*/
-            /*padding-right: 30px;*/
-            padding: 15px;
+            -webkit-box-shadow: inset 0px 200px 0px 0px rgba(58,176,89,1);
+            -moz-box-shadow: inset 0px 200px 0px 0px rgba(58,176,89,1);
+            box-shadow: inset 0px 200px 0px 0px rgba(58,176,89,1);
+            padding-left: 30px;
+            padding-right: 30px;
+            border-radius: 10px;
             transition: 1s;
-            border-radius: 15px;
         }
 
         #header {
             text-align: center;
             transition: 0.8s;
+            font-family: 'Exo', sans-serif;
+
         }
 
         #header:hover {
@@ -107,15 +112,15 @@
         }
 
         #address {
-            font-family: "Comic Sans MS";
+            font-family: 'Exo', sans-serif;
             transition: 0.8s;
         }
 
         #address:hover {
-            font-family: "Comic Sans MS";
-            -webkit-box-shadow: 0px 0px 20px 0px rgba(255,255,255,1);
-            -moz-box-shadow: 0px 0px 20px 0px rgba(255,255,255,1);
-            box-shadow: 0px 0px 20px 0px rgba(255,255,255,1);
+            font-family: 'Exo', sans-serif;
+            -webkit-box-shadow: 0px 5px 8px 0px rgba(0,0,0,0.6);
+            -moz-box-shadow: 0px 5px 8px 0px rgba(0,0,0,0.6);
+            box-shadow: 0px 5px 8px 0px rgba(0,0,0,0.6);
             transition: 0.8s;
         }
 
@@ -213,14 +218,15 @@
     var mapOptions = {
         // SET ZOOM LEVEL
 
-        zoom: 19,
+        zoom: 10,
 
         // THIS SETS THE CENTER OF THE MAP AT OUR LOCATION
-
+        styles: [{"featureType":"water","elementType":"geometry","stylers":[{"color":"#333739"}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#2ecc71"}]},{"featureType":"poi","stylers":[{"color":"#2ecc71"},{"lightness":-7}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#2ecc71"},{"lightness":-28}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#2ecc71"},{"visibility":"on"},{"lightness":-15}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#2ecc71"},{"lightness":-18}]},{"elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#2ecc71"},{"lightness":-34}]},{"featureType":"administrative","elementType":"geometry","stylers":[{"visibility":"on"},{"color":"#333739"},{"weight":0.8}]},{"featureType":"poi.park","stylers":[{"color":"#2ecc71"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"color":"#333739"},{"weight":0.3},{"lightness":10}]}],
         center: {
 
             lat: 29.426791,
             lng: -98.489602
+
 
         },
         disableDefaultUI: false
