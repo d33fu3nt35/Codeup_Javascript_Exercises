@@ -17,7 +17,8 @@
 
         .icon {
             text-align: center;
-            margin: 0 auto;
+            margin-left: 100px;
+            margin-right: 100px;
             display: block;
             -webkit-transition: all 0.5s;
             transition: all 0.5s;
@@ -196,7 +197,7 @@
                 weather += '<div class="col-xs-4 box text-center"><h2>' + date + '</h2>';
                 weather += "<span class='icon'></span><br><br>";
                 weather += "<strong>" + data.list[i].weather[0].main + ": </strong>" + data.list[i].weather[0].description + "<br><br>";
-                weather += '<p>' + '<h4>' + data.list[i].temp.min + '\\' + data.list[i].temp.max + '</h4>' + '</p>';
+                weather += '<p>' + '<h4>' + data.list[i].temp.min + '˚ ' + ' | ' + data.list[i].temp.max + '˚ ' + '</h4>' + '</p>';
                 weather += '<p>Clouds: ' + data.list[i].clouds + '</p>';
                 weather += '<p>Humidity: ' + data.list[i].humidity + '</p>';
                 weather += '<p>Wind: ' + data.list[i].speed + '</p>';
