@@ -192,8 +192,8 @@
 
         center: {
 
-            lat: 29.4241,
-            lng: -98.4936
+            lat: 29.426791,
+            lng: -98.489602
 
         },
         disableDefaultUI: false
@@ -205,6 +205,21 @@
     // RENDER THE MAP
 
     var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+
+    var codeup = { lat: 29.426791, lng: -98.489602 };
+
+    var marker = new google.maps.Marker({
+        position: codeup,
+        draggable: true,
+        map: map
+    });
+
+    marker.addListener('dragend', function(){
+        console.log(marker.getPosition().lat());
+        console.log(marker.getPosition().lng());
+        getWeather(marker.getPosition().lat(), marker.getPosition().lng());
+    });
 
 //    // GEOCODING
 //
