@@ -15,6 +15,19 @@
             text-shadow: 0px 5px 5px rgba(150, 150, 150, 0.45);
         }
 
+        .icon {
+            text-align: center;
+            margin: 0 auto;
+            display: block;
+            -webkit-transition: all 0.5s;
+            transition: all 0.5s;
+        }
+
+        .icon:hover {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+
         body {
             /*background-color: #8dd5ad;*/
             text-align: center;
@@ -92,6 +105,19 @@
             transition: 0.8s;
         }
 
+        #address {
+            font-family: "Comic Sans MS";
+            transition: 0.8s;
+        }
+
+        #address:hover {
+            font-family: "Comic Sans MS";
+            -webkit-box-shadow: 0px 0px 20px 0px rgba(255,255,255,1);
+            -moz-box-shadow: 0px 0px 20px 0px rgba(255,255,255,1);
+            box-shadow: 0px 0px 20px 0px rgba(255,255,255,1);
+            transition: 0.8s;
+        }
+
         thead {
             /*float: top;*/
             /*display: inline;*/
@@ -128,7 +154,7 @@
 <br>
 <div id='map-canvas'></div>
 <br>
-<input id="address" placeholder="Address:">
+<input id="address" class="input-lg text-center" placeholder="Address:">
 <br>
 <br>
 <button id="addressBtn" class="btn btn-success">Submit</button>
@@ -212,7 +238,8 @@
     var marker = new google.maps.Marker({
         position: codeup,
         draggable: true,
-        map: map
+        map: map,
+        animation: google.maps.Animation.DROP
     });
 
     marker.addListener('dragend', function(){
@@ -256,7 +283,7 @@
 
                 map.setCenter(results[0].geometry.location);
                 getWeather(results[0].geometry.location.lat(), results[0].geometry.location.lng());
-
+                marker.setPosition(results[0].geometry.location);
             } else {
 
                 alert('Geocoding was not successful - STATUS: ' + status);
