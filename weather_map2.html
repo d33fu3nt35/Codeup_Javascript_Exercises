@@ -28,6 +28,7 @@
             display: block;
             margin: auto;
             height: 2px;
+
             width: 0px;
             background: transparent;
             transition: width 1s ease, background-color 1s ease;
@@ -37,7 +38,7 @@
             background: black;
         }
 
-        .icon {
+        #icon {
             text-align: center;
             margin-left: 100px;
             margin-right: 100px;
@@ -46,7 +47,7 @@
             transition: all 1s;
         }
 
-        .icon:hover {
+        #icon:hover {
             -webkit-transform: rotate(360deg);
             transform: rotate(360deg);
             animation: spin 12s infinite linear;
@@ -168,10 +169,96 @@
 
         }
 
+        .overlay{
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: #3ec769;
+            z-index: 100;
+        }
+
+        .wrapper{
+            width: 100px;
+            height: 100px;
+            background: #3ec769;
+            display: flex;
+            flex-flow: row wrap;
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 3px;
+        }
+
+        .box{
+            width: 50%;
+            height: 50%;
+            flex: 50%;
+            transition: 0.5s;
+            border: 2px solid #3ec769;
+        }
+
+        .box:nth-child(1){
+            animation: load 1s infinite;
+        }
+
+        .box:nth-child(2){
+            animation: load2 1s infinite;
+            animation-delay: 0.2s;
+        }
+
+        .box:nth-child(3){
+            animation: load3 1s infinite;
+            animation-delay: 0.7s;
+        }
+
+        .box:nth-child(4){
+            animation: load4 1s infinite;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes load {
+            0% { background: rgba(231, 76, 60, 0); }
+            30% { background: rgb(54, 166, 83); }
+
+            100% { background: rgba(231, 76, 60, 0); }
+        }
+
+        @keyframes load2 {
+            0% { background: rgba(46, 204, 113, 0); }
+            30% { background: rgb(41, 122, 61); }
+
+            100% { background: rgba(46, 204, 113, 0); }
+        }
+
+        @keyframes load3 {
+            0% { background: rgba(230, 126, 34, 0); }
+            30% { background: rgb(26, 90, 45); }
+
+            100% { background: rgba(230, 126, 34, 0); }
+        }
+
+        @keyframes load4 {
+            0% { background: rgba(241, 196, 15, 0); }
+            30% { background: rgb(11, 27, 13); }
+
+            100% { background: rgba(241, 196, 15, 0); }
+        }
+
 
     </style>
 </head>
 <body>
+
+<div class="overlay">
+    <div class="wrapper">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+    </div>
+</div>
+
 
 <div class="container">
     <div id="header"><h1>Weather Application</h1></div>
@@ -182,7 +269,7 @@
 <br>
 <div id='map-canvas'></div>
 <br>
-<input id="address" class="input-lg text-center" placeholder="Address:">
+<input type="text" id="address" class="input-lg text-center" placeholder="Address:">
 <br>
 <br>
 <button id="addressBtn" class="btn btn-success">Submit</button>
@@ -196,6 +283,10 @@
 <script>
 
     'use strict';
+
+    $(window).load(function() {
+        $(".overlay").fadeOut(1000);
+    });
 
     var i;
     function getWeather(lat, lng) {
@@ -221,8 +312,9 @@
                 var location = '';
 
                 location += data.city.name;
-                weather += '<div class="col-xs-4 box text-center"><h2 id="days">' + date + '</h2>';
-                weather += "<span class='icon'></span><br><br>";
+                weather += '<div class="col-xs-4 box1 text-center"><h2 id="days">' + date + '</h2>';
+                weather += '<br>' + '<span id="icon">' + '<img src="http://openweathermap.org/img/w/' + data.list[i].weather[0].icon + '.png">' + '</span>' + '<br>';
+//                weather += "<span class='icon'></span><br><br>";
                 weather += "<strong>" + data.list[i].weather[0].main + ": </strong>" + data.list[i].weather[0].description + "<br><br>";
                 weather += '<p>' + '<h4>' + data.list[i].temp.min + '˚ ' + ' | ' + data.list[i].temp.max + '˚ ' + '</h4>' + '</p>';
                 weather += '<p>Clouds: ' + data.list[i].clouds + '</p>';
@@ -232,7 +324,7 @@
             }
 
             $('#weather').html(weather);
-            $(".icon").html("<img src='" + iconUrl + "'>");
+//            $(".icon").html("<img src='" + iconUrl + "'>");
         });
     }
     //        ---------- GOOGLE MAPS API ----------
