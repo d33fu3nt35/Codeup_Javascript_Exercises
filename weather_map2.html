@@ -18,6 +18,16 @@
         }
 
 
+        .container {
+            text-align: center;
+            padding: 10px;
+        }
+
+        .row {
+            text-align: center;
+            margin: auto;
+        }
+
         #days {
             display: inline-block;
             position: relative;
@@ -40,8 +50,6 @@
 
         #icon {
             text-align: center;
-            margin-left: 100px;
-            margin-right: 100px;
             display: block;
             -webkit-transition: all 1s;
             transition: all 1s;
@@ -114,6 +122,7 @@
         }
 
         .col-xs-4 {
+            text-align: center;
             background-color: rgba(0, 255, 245, 0.24);
             user-select: none;
             margin: 1px;
@@ -123,14 +132,15 @@
         }
 
         .col-xs-4:hover {
+            text-align: center;
             background-color: rgba(255, 255, 255, 0.7);
             user-select: none;
             margin: 1px;
             border: solid black 3px;
             width: 32.333333%;
-            -webkit-box-shadow: 0px 50px 0px 0px rgba(0, 0, 0, 0.35);
-            -moz-box-shadow: 0px 50px 0px 0px rgba(0, 0, 0, 0.35);
-            box-shadow: 0px 50px 0px 0px rgba(0, 0, 0, 0.35);
+            -webkit-box-shadow: 0px 45px 0px 0px rgba(0, 0, 0, 0.35);
+            -moz-box-shadow: 0px 45px 0px 0px rgba(0, 0, 0, 0.35);
+            box-shadow: 0px 45px 0px 0px rgba(0, 0, 0, 0.35);
             transition: 0.8s ease;
         }
 
@@ -190,7 +200,7 @@
             padding: 3px;
         }
 
-        .box{
+        .box {
             width: 50%;
             height: 50%;
             flex: 50%;
@@ -245,6 +255,47 @@
             100% { background: rgba(241, 196, 15, 0); }
         }
 
+        @media screen and (max-width: 600px) {
+            .container, .row {
+                width: 100%;
+                text-align: center
+            }
+
+            .col-xs-4 {
+                width: 100%;
+                max-width: 600px;
+                font-size: small;
+                margin: 1px;
+            }
+
+            #days {
+                width: 100%;
+                max-width: 600px;
+                font-size: 150%;
+            }
+        }
+
+        @media screen and (max-width: 400px) {
+            .container, .row {
+                width: 100%;
+                text-align: center;
+            }
+
+
+            .col-xs-4 {
+                width: 100%;
+                max-width: 400px;
+                font-size: small;
+                margin: 1px;
+            }
+
+            #days {
+                width: 100%;
+                max-width: 600px;
+                font-size: 150%;
+            }
+        }
+
 
     </style>
 </head>
@@ -285,7 +336,7 @@
     'use strict';
 
     $(window).load(function() {
-        $(".overlay").fadeOut(1000);
+        $(".overlay").fadeOut(3000);
     });
 
     var i;
