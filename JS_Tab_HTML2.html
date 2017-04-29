@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Js Tab & Section</title>
+
     <style>
+
         body {
             font-family: "Lato", sans-serif;
             padding: 0px;
@@ -65,69 +67,83 @@
 
         /* Fade in tabs */
         @-webkit-keyframes fadeEffect {
-            from {opacity: 0;}
-            to {opacity: 1;}
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
 
         @keyframes fadeEffect {
-            from {opacity: 0;}
-            to {opacity: 1;}
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
+
     </style>
+
 </head>
 <body>
+<div class="container">
 
-<h3 id="Header">My Tabs & Sections</h3>
+    <h3 id="Header">My Tabs & Sections</h3>
 
-<div class="tab">
-    <button class="tablinks active" onclick="openCity(event, 'London')">London</button>
-    <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
-    <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
-    <button class="tablinks" onclick="openCity(event, 'SanAntonio')">San Antonio</button>
-    <button class="tablinks" onclick="openCity(event, 'SanFrancisco')">San Francisco</button>
-    <button class="tablinks" onclick="openCity(event, 'Japan')">Japan</button>
-    <button class="tablinks" onclick="openCity(event, 'Europe')">Europe</button>
-    <button class="tablinks" onclick="openCity(event, 'Asia')">Asia</button>
-</div>
+    <div class="tab">
+        <button class="tablinks active" onclick="openCity(event, 'London')">London</button>
+        <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
+        <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+        <button class="tablinks" onclick="openCity(event, 'SanAntonio')">San Antonio</button>
+        <button class="tablinks" onclick="openCity(event, 'SanFrancisco')">San Francisco</button>
+        <button class="tablinks" onclick="openCity(event, 'Japan')">Japan</button>
+        <button class="tablinks" onclick="openCity(event, 'Europe')">Europe</button>
+        <button class="tablinks" onclick="openCity(event, 'Asia')">Asia</button>
+    </div>
 
-<div id="London" class="tabcontent">
-    <h3>London</h3>
-    <p>London is the capital city of England.</p>
-</div>
+    <div id="London" class="tabcontent">
+        <h3>London</h3>
+        <p>London is the capital city of England.</p>
+    </div>
 
-<div id="Paris" class="tabcontent">
-    <h3>Paris</h3>
-    <p>Paris is the capital of France.</p>
-</div>
+    <div id="Paris" class="tabcontent">
+        <h3>Paris</h3>
+        <p>Paris is the capital of France.</p>
+    </div>
 
-<div id="Tokyo" class="tabcontent">
-    <h3>Tokyo</h3>
-    <p>Tokyo is the capital of Japan.</p>
-</div>
+    <div id="Tokyo" class="tabcontent">
+        <h3>Tokyo</h3>
+        <p>Tokyo is the capital of Japan.</p>
+    </div>
 
-<div id="SanAntonio" class="tabcontent">
-    <h3>San Antonio</h3>
-    <p>San Antonio is where I live.</p>
-</div>
+    <div id="SanAntonio" class="tabcontent">
+        <h3>San Antonio</h3>
+        <p>San Antonio is where I live.</p>
+    </div>
 
-<div id="SanFrancisco" class="tabcontent">
-    <h3>San Fransico</h3>
-    <p>According to a study in 2014, 29% of San Francisco’s pollution comes from China.</p>
-</div>
+    <div id="SanFrancisco" class="tabcontent">
+        <h3>San Fransico</h3>
+        <p>According to a study in 2014, 29% of San Francisco’s pollution comes from China.</p>
+    </div>
 
-<div id="Japan" class="tabcontent">
-    <h3>Japan</h3>
-    <p>Late-night dancing was illegal in Japan until 2015.</p>
-</div>
+    <div id="Japan" class="tabcontent">
+        <h3>Japan</h3>
+        <p>Late-night dancing was illegal in Japan until 2015.</p>
+    </div>
 
-<div id="Europe" class="tabcontent">
-    <h3>Europe</h3>
-    <p>With a land area of only 4,000,000 square miles, Europe is the second smallest continent in the world, just behind Australia.</p>
-</div>
+    <div id="Europe" class="tabcontent">
+        <h3>Europe</h3>
+        <p>With a land area of only 4,000,000 square miles, Europe is the second smallest continent in the world, just
+            behind Australia.</p>
+    </div>
 
-<div id="Asia" class="tabcontent">
-    <h3>Asia</h3>
-    <p>Asia’s population-of over 4 billion people-is greater than that of the all the other continents combined.</p>
+    <div id="Asia" class="tabcontent">
+        <h3>Asia</h3>
+        <p>Asia’s population-of over 4 billion people-is greater than that of the all the other continents combined.</p>
+    </div>
+
 </div>
 
 <script>
@@ -137,10 +153,12 @@
         for (i = 0; i < tabcontent.length; i++) {
             tabcontent[i].style.display = "none";
         }
+
         tablinks = document.getElementsByClassName("tablinks");
         for (i = 0; i < tablinks.length; i++) {
             tablinks[i].className = tablinks[i].className.replace(" active", "");
         }
+
         document.getElementById(cityName).style.display = "block";
         evt.currentTarget.className += " active";
     }
